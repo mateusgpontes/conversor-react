@@ -1,0 +1,8 @@
+h1{
+    text-align: center;
+}
+.linhas{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
