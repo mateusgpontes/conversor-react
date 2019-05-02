@@ -10,7 +10,19 @@ export default class Conversor extends Component {
 
 
     converter = () =>{
-        console.log(this.state)
+        let moeda = `${this.props.moedaA}_${this.props.moedaB}`;
+        let linkConvert  = `https://free.currconv.com/api/v7/convert?q=${moeda}&compact=ultra&apiKey=125e587ccee6d4edff83`;
+
+        fetch(linkConvert)
+        .then(res =>{
+            return res.json();
+        })
+        .then(json=>{
+            let cotacao = json[moeda];
+            let moedaB_valor = (parseFloat(this.state.moedaA_valor) * cotacao).toFixed(2);
+            this.setState({moedaB_valor});
+        });
+        
     }
     
     render(){
@@ -21,7 +33,7 @@ export default class Conversor extends Component {
                 </input>
                 <input type="button" value="Converter" onClick={this.converter}>
                 </input>
-                <h2>Valor convertido</h2>
+                <h2>{String(this.state.moedaB_valor)}</h2>
             </>
         );
     };
